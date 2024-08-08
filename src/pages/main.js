@@ -7,59 +7,64 @@ import { listEmplyees } from "../package/UserSercvice";
 function Main() {
     let navigate = useNavigate();
     let [users, setUsers] = useState([]);
+    let [flag, setFlag] = useState(1);
 
     useEffect(() => {
-        listEmplyees().then((response) => {
-            setUsers(response.data);
-            console.log('no');
-        })
-    }, [])
+        if (flag == 1) {
+            listEmplyees().then((response) => {
+                console.log('get');
+                console.log(response.data);
+                setUsers([...response.data]);
+            })
+        }
+        setFlag(0);
+    })
+
+    function deleteUser(id) {
+        axios.delete(`http://localhost:8080/user/${id}`);
+        setFlag(1);
+        console.log("delete");
+    }
 
     return (
         <>
             <Table striped bordered hover>
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>NAME</th>
                     <th>E-Mail</th>
+                    <th>ETC</th>
                 </tr>
                 </thead>
                 <tbody>
                 {
-                    users.map((a, i)=> {
+                    users.map((user)=> {
                         return (
-                            <Data num = {i} user={users[i]} setUsers = {setUsers} ></Data>
+                            <tr>
+                                <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td>
+                                    <Button variant="primary" onClick={()=>{
+                                        navigate(`/update/${user.id}`);
+                                    }}>UPDATE</Button>
+                                    <Button variant="danger" onClick={() => {
+                                    navigate('/');
+                                    console.log('delete button clicked');
+                                    deleteUser(user.id);
+                                    window.location.reload();
+                                }}>DELETE</Button></td>
+                            </tr>
                         )
                     })
                 }
                 </tbody>
             </Table>
-            <Button variant="primary" onClick={() => navigate("/new")}>New</Button>
+            <Button variant="primary" onClick={() => {
+                navigate("/new"); setFlag(1);
+            }}>New</Button>
         </>
-    )
-}
-
-function Data(props) {
-    let nav = useNavigate();
-
-    function deleteUser(id) {
-        axios.delete(`http://localhost:8080/user/${id}`)
-        console.log("ㅁㄱ");
-    }
-
-    return (
-        <tr>
-            <td>{props.num}</td>
-            <td>{props.user.id}</td>
-            <td>{props.user.name}</td>
-            <td>{props.user.email}</td>
-            <td><Button variant="danger" onClick={() => {
-                deleteUser(props.user.id);
-                nav('/') 
-            }}>delete</Button></td>
-        </tr>
     )
 }
 

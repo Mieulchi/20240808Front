@@ -8,6 +8,7 @@ import Main from './pages/main.js'
 import New from './pages/new.js'
 import { Container, Nav, NavDropdown } from 'react-bootstrap';
 import { BrowserRouter } from 'react-router-dom';
+import Update from './pages/update.js';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Routes>
           <Route path='/' element = {<Main/>} />
           <Route path='/new' element = {<New/>} />
+          <Route path='/update/:id' element = {<Update/>}></Route>
         </Routes>
     </div>
   )

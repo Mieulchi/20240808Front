@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 function New() {
-    let nav = useNavigate()
+    let nav = useNavigate();
     let [name, setName] = useState("");
     let [email, setEmail] = useState("");
 
