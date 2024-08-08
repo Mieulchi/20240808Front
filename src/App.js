@@ -7,9 +7,9 @@ import { Route, Routes, Link, useNavigate} from 'react-router-dom';
 import Main from './pages/main.js'
 import New from './pages/new.js'
 import { Container, Nav, NavDropdown } from 'react-bootstrap';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
-
   return (
     <div className="App">
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -34,10 +34,10 @@ function App() {
         </Navbar.Collapse>
       </Container>
       </Navbar>
-      <Routes>
-        <Route path='/' element=<Main/> />
-        <Route path='/new' element = <New/> />
-      </Routes>
+        <Routes>
+          <Route path='/' element = {<Main/>} />
+          <Route path='/new' element = {<New/>} />
+        </Routes>
     </div>
   )
 }

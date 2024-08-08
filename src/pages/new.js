@@ -18,6 +18,34 @@ function New() {
         })
     }
 
+    const [files, setFiles] = useState([]);
+
+    const handleFilesChange = (e) => {
+        setFiles(Array.from(e.target.files));
+    }
+
+    const uploadFiles = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+    
+        files.map((file) => {
+          formData.append("files", file);
+        });
+    
+        console.log(Array.from(formData));
+    
+        axios.post('http://localhost:8080/file/uploads', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then((res) => {
+            console.log(res.data);
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+
     return (
         <>
             <Form>
@@ -31,12 +59,13 @@ function New() {
                     <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                     </Form.Text>
-                </Form.Group>
+                </Form.Group>;
 
-                
                 <Button variant="primary" onClick={() => {
-                    addPerson(name, email);
-                    nav('/')
+                    if (name != "" && email != "") {
+                        nav('/')
+                        addPerson(name, email);
+                    }
                 }}>
                     Submit
                 </Button>
