@@ -18,33 +18,33 @@ function New() {
         })
     }
 
-    const [files, setFiles] = useState([]);
+    // const [files, setFiles] = useState([]);
 
-    const handleFilesChange = (e) => {
-        setFiles(Array.from(e.target.files));
-    }
+    // const handleFilesChange = (e) => {
+    //     setFiles(Array.from(e.target.files));
+    // }
 
-    const uploadFiles = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
+    // const uploadFiles = (e) => {
+    //     e.preventDefault();
+    //     const formData = new FormData();
     
-        files.map((file) => {
-          formData.append("files", file);
-        });
+    //     files.map((file) => {
+    //       formData.append("files", file);
+    //     });
     
-        console.log(Array.from(formData));
+    //     console.log(Array.from(formData));
     
-        axios.post('http://localhost:8080/file/uploads', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then((res) => {
-            console.log(res.data);
-        }).catch((err) => {
-            console.error(err);
-        });
-    }
+    //     axios.post('http://localhost:8080/file/uploads', formData, {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data'
+    //       }
+    //     })
+    //     .then((res) => {
+    //         console.log(res.data);
+    //     }).catch((err) => {
+    //         console.error(err);
+    //     });
+    // }
 
     return (
         <>
